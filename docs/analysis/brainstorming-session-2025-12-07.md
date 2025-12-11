@@ -24,13 +24,13 @@ context_file: ''
 
 ### Context Guidance
 
-- Product brief (docs/product-brief.md): ASP.NET Core API + Angular UI to list agents, start sessions, run party-mode; internal-only V1 with API-key guard, in-memory session state, optional SignalR; BMAD assets live in .bmad/.
-- Tech spec (docs/tech-spec.md): Data sources are .bmad/_cfg/agent-manifest.csv + .bmad/bmm/agents/*.md; services include IAgentCatalog (manifest + persona merge), IChatService (prompts + session), ILLMClient (pluggable), ISessionStore (in-memory); endpoints for list/chat; Angular consumes REST.
+- Product brief (docs/product-brief.md): ASP.NET Core API + React UI to list agents, start sessions, run party-mode; internal-only V1 with API-key guard, in-memory session state, optional SignalR; BMAD assets live in .bmad/.
+- Tech spec (docs/tech-spec.md): Data sources are .bmad/_cfg/agent-manifest.csv + .bmad/bmm/agents/*.md; services include IAgentCatalog (manifest + persona merge), IChatService (prompts + session), ILLMClient (pluggable), ISessionStore (in-memory); endpoints for list/chat; React consumes REST.
 
 ### Session Setup
 
 - Confirmed understanding of BMAD: BMad Method Module under .bmad/ with manifests, personas, workflows, config.
-- Current codebase status: API is ASP.NET Core 8 skeleton with Swagger; UI is Angular 19 SSR scaffold still on the starter page.
+- Current codebase status: API is ASP.NET Core 8 skeleton with Swagger; UI is React SSR scaffold still on the starter page.
 - Objective clarity: move personas/agents into the API so UI can list/use them; ensure stack is adequate (it is).
 
 ### Current Next Step

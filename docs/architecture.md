@@ -37,7 +37,7 @@ Concrete implementation details to accompany the existing tech spec. Scope: V1 R
 - Log `requestId, sessionId, agentId, duration, outcome`; optionally prompt/response in dev.
 - Swagger enabled in dev only.
 
-## Frontend Expectations (Angular 19)
+## Frontend Expectations (React console)
 - Pages: Agents list (cards with name/title/icon/role snippet), Agent detail (description, principles), Chat placeholder wired to POST `/chat`.
 - Graceful fallback for missing icons/descriptions; preserve “3 clicks to first session” goal (list → select → chat).
 

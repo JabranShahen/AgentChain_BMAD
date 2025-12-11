@@ -1,4 +1,4 @@
-# Tech Spec: AgentChain API + Angular Console (V1)
+# Tech Spec: AgentChain API + React Console (V1)
 
 ## Goals
 - Expose BMAD agents/workflows via an HTTP API for internal consumers.
@@ -16,7 +16,7 @@
 - **LLM client:** Pluggable interface (e.g., `ILLMClient`) with an initial concrete implementation deferred until a provider is chosen.
 - **Session store:** In-memory per-process; replaceable via interface.
 - **Streaming:** Optional SignalR hub for incremental tokens; fallback to REST responses.
-- **Frontend:** Angular 19 (SSR scaffold present) consuming the API.
+- **Frontend:** React (SSR scaffold present) consuming the API.
 
 ## Backend Components
 - **Controllers**
@@ -57,7 +57,7 @@
 ## Data Flow (Chat, SignalR path)
 1–4 as above; 5 emits tokens/events over SignalR hub (`/chatHub`), updating store on completion; 6 acknowledges sessionId to caller.
 
-## Frontend (Angular) Pages
+## Frontend (React) Pages
 - **Agents list:** Fetch `/agents`, show cards; click to open chat.
 - **Chat console:** Select agent, send message, display transcript; if SignalR enabled, stream tokens.
 - **Sessions list (simple):** Show recent in-memory sessions (optional V1); link to resume chat if store retained.
@@ -88,9 +88,6 @@
 - Persistence upgrade path (Redis/DB) for sessions.
 
 ## API Endpoint Contracts (REST, V1)
-Headers (all endpoints)
-- `x-api-key: <key>` (required, simple shared secret)
-
 `GET /agents`
 - Response 200:
 ```json
@@ -160,7 +157,7 @@ Headers (all endpoints)
   - Server → Client stream: `message` event `{ sessionId, from, content, ts, isFinal }`
 - REST and SignalR should share session store/LLM client to keep transcripts consistent.
 
-## Example Angular Usage (REST)
+## Example React Usage (REST)
 - List agents: `GET /agents` → render cards.
 - Start chat: `POST /chat` with agentId/message → display returned messages; keep `sessionId` for follow-ups.
 - Resume chat: call `POST /chat` with same `sessionId`.

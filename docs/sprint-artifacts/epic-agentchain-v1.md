@@ -5,7 +5,7 @@ Purpose: deliver the first usable slice of the AgentChain API + UI so internal u
 ## Scope
 - Backend: ASP.NET Core 8, REST-first; API-key guard; in-memory session store; stub LLM client; Swagger in dev only.
 - Data source: BMAD assets under `BMAD_ROOT` (default `.bmad/`): `_cfg/agent-manifest.csv` + `bmm/agents/*.md`.
-- Frontend: Angular 19 SSR; agents list, detail, and chat placeholder wired to REST.
+- Frontend: React SSR; agents list, detail, and chat placeholder wired to REST.
 
 ## Stories
 
@@ -29,7 +29,7 @@ Purpose: deliver the first usable slice of the AgentChain API + UI so internal u
 - Tests: unit (catalog parsing happy/edge; session store CRUD); integration (`/agents` 200/404; `/chat` 401/200 with stub).
 - Acceptance: Logs emitted per request with the listed fields; tests cover stated cases and pass locally.
 
-5) Angular UI MVP
+- 5) React UI MVP
 - Replace starter page with agents list (cards); agent detail view (description, principles); chat placeholder posting to `/chat`.
 - Handle missing icons/descriptions gracefully; basic loading/error states; maintain “3 clicks to first session” path (list → select → chat).
 - Acceptance: UI renders agent list from `/agents`; detail fetches `/agents/{id}`; chat form posts to `/chat` and shows response; empty/missing icon does not break layout.

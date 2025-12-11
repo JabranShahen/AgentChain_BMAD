@@ -1,4 +1,4 @@
-# Product Brief: AgentChain (Agentic API + Angular Console)
+# Product Brief: AgentChain (Agentic API + React Console)
 
 ## Problem
 Teams want to expose BMAD agents/workflows through simple APIs and UI, but current usage is CLI/manual. There is no easy way to list agents, start sessions, or orchestrate multi-agent discussions from applications.
@@ -8,7 +8,7 @@ Teams want to expose BMAD agents/workflows through simple APIs and UI, but curre
 - Secondary: Product/ops teams using the UI to trigger workflows.
 
 ## Solution (V1)
-ASP.NET Core API that lists BMAD agents from the manifest and lets clients chat with agents or run workflows; Angular UI to browse agents, start sessions, and view streaming responses.
+ASP.NET Core API that lists BMAD agents from the manifest and lets clients chat with agents or run workflows; React UI to browse agents, start sessions, and view streaming responses.
 
 ## Top Use Cases (V1)
 1) List agents and their capabilities.  
@@ -17,7 +17,7 @@ ASP.NET Core API that lists BMAD agents from the manifest and lets clients chat 
 4) View session history.
 
 ## Scope
-- In: REST endpoints for list/chat/run, in-memory session state, optional SignalR streaming, simple API-key auth stub, Angular screens for agent list, chat console, session list.
+- In: REST endpoints for list/chat/run, in-memory session state, optional SignalR streaming, simple API-key auth stub, React screens for agent list, chat console, session list.
 - Out (V1): Durable persistence, role-based auth, billing, advanced analytics.
 
 ## Success Metrics
@@ -30,10 +30,10 @@ ASP.NET Core API that lists BMAD agents from the manifest and lets clients chat 
 - BMAD assets live in `.bmad/`.
 - LLM backend TBD (pluggable).
 - Internal use only for V1.
-- Deploy on current stack (ASP.NET Core + Angular SSR).
+- Deploy on current stack (ASP.NET Core + React SSR).
 
 ## First Sprint Goal
-Deliver list + chat endpoints and Angular UI to select an agent and exchange messages (REST or SignalR), with API key guard and basic logging.
+Deliver list + chat endpoints and React UI to select an agent and exchange messages (REST or SignalR), with API key guard and basic logging.
 
 ## Risks
 - LLM latency impacting UX.
