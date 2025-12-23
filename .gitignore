@@ -1,0 +1,3 @@
+# BMAD-only repo: ignore non-BMAD project folders
+/AgentChain_UI/
+/Agent_Chain_API/
