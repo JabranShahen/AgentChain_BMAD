@@ -3,7 +3,7 @@ storyId: "2.2"
 storyKey: "2-2-chat-within-a-session-canonical-api-chat"
 epic: "2"
 title: "Chat Within a Session (Canonical `/api/chat`)"
-status: "ready-for-dev"
+status: "done"
 createdBy: "SM (*create-story #yolo)"
 sourceArtifacts:
   - "_bmad-output/epics.md"
@@ -14,7 +14,7 @@ sourceArtifacts:
 ---
 # Story 2.2: Chat Within a Session (Canonical `/api/chat`)
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -58,35 +58,37 @@ AC5
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Implement AC1 (AC: AC1)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 1: Implement AC1 (AC: AC1)
+  - [x] Add canonical `/api/chat` endpoint that validates the catalog and stored session, and returns `{ sessionId, messages[] }` with user + assistant entries (no raw config leaks).
+  - [x] Covered the endpoint with `agent_service.Tests/ChatEndpointsTests.cs` to exercise bad payloads, missing agents, invalid sessions, and the happy path.
+  - [x] Manual verification: POSTing `/api/chat` against a valid session returns both user/assistant messages and the expected session id.
 
-- [ ] Task 2: Implement AC2 (AC: AC2)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 2: Implement AC2 (AC: AC2)
+  - [x] Updated `AgentChain_UI/src/App.tsx` to include `sessionId`/`agentId`/`message` in the `/api/chat` payload, append the returned messages, and keep chat disabled until a session exists.
+  - [x] Added Vitest coverage (`App.test.tsx`) confirming the chat payload, the UI appending assistant replies, and that chat never runs before the session is ready.
+  - [x] Manual verification: send text after a session is created and confirm the network trace shows `/api/chat` with the proper JSON and the UI renders both messages.
 
-- [ ] Task 3: Implement AC3 (AC: AC3)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 3: Implement AC3 (AC: AC3)
+  - [x] `ChatEndpoints` returns `ErrorResponse("Session not found.")` for missing/mismatched sessions so clients get non-leaky 404s.
+  - [x] UI displays "Session not found." in the header/chat panel, clears the stale session, and blocks chat until the user retries.
+  - [x] Manual verification: hitting `/api/chat` with an invalid session shows the friendly session error without exposing internal details.
 
-- [ ] Task 4: Implement AC4 (AC: AC4)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 4: Implement AC4 (AC: AC4)
+  - [x] Invalid `agentId` in the chat payload now produces a 404 + `ErrorResponse("Agent not found.")`, and the UI surfaces the message via the chat error scope.
+  - [x] Vitest ensures the chat UI shows the agent-level error without firing a chat retry or leaking stack traces.
+  - [x] Manual verification: send a payload for a nonexistent agent and confirm the UI error reads "Agent not found."
 
-- [ ] Task 5: Implement AC5 (AC: AC5)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 5: Implement AC5 (AC: AC5)
+  - [x] Chat failure handling now distinguishes 404 vs. other failures, showing user-friendly text and keeping logs clean.
+  - [x] Added UI tests for the general failure path and the session-not-found retry flow so `POST /api/chat` is never retried blindly.
+  - [x] Manual verification: simulate a 500 response and observe the header error + disabled send button without leaking internals.
 
 ## Dev Notes
 
-- Primary source of truth: _bmad-output/epics.md (this story section)
-- Keep outputs non-leaky: no internal file paths, raw configs, stack traces, or persona/system prompt text in user-visible errors.
+- `/api/chat` now enforces the agent/session contract via `AiAgent.Abstractions.IAgentSessionStore` and returns deterministic `ChatMessageResponse` entries that the UI can append directly.
+- The UI sends `{ agentId, sessionId, message }`, waits for the session to exist before enabling the send button, and surfaces clear text for session/agent errors without leaking stack traces.
+- Vitest covers successful replies plus both session/missing agent scenarios, while the backend tests guard every chat error path and response shape.
+- Primary references: `_bmad-output/epics.md` (Story 2.2), `_bmad-output/architecture-api.md`, `_bmad-output/architecture-ui.md`
 
 ### References
 - _bmad-output/epics.md
@@ -99,16 +101,24 @@ AC5
 
 ### Agent Model Used
 
-TBD
+GPT-5 (Codex CLI)
 
 ### Debug Log References
 
-TBD
+- `dotnet test agent_service.Tests/agent_service.Tests.csproj`
+- `npm test`
+- `npm run lint`
 
 ### Completion Notes List
 
-TBD
+- Added canonical `POST /api/chat` that validates agent/session and returns user + assistant messages along with a structured error response.
+- Updated the UI to include `{ agentId, sessionId, message }`, disable chat until a session exists, and surface session/agent errors with retryable UI affordances.
+- Extended Vitest with chat success/failure coverage so the send button never fires before a session is ready and session-level errors stay visible.
+- Documented results, reran backend/unit tests, and linted the UI (`dotnet test`, `npm test`, `npm run lint`).
 
 ### File List
 
-TBD
+- `AgentChain_API/againt_chain_api/Features/Chat/Endpoints/ChatEndpoints.cs`
+- `AgentChain_API/agent_service.Tests/ChatEndpointsTests.cs`
+- `AgentChain_UI/src/App.tsx`
+- `AgentChain_UI/src/App.test.tsx`
