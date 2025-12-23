@@ -3,7 +3,7 @@ storyId: "1.2"
 storyKey: "1-2-view-agent-details-metadata-menu-items-only"
 epic: "1"
 title: "View Agent Details (Metadata + Menu Items Only)"
-status: "ready-for-dev"
+status: "done"
 createdBy: "SM (*create-story #yolo)"
 sourceArtifacts:
   - "_bmad-output/epics.md"
@@ -14,7 +14,7 @@ sourceArtifacts:
 ---
 # Story 1.2: View Agent Details (Metadata + Menu Items Only)
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -53,25 +53,25 @@ AC4
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Implement AC1 (AC: AC1)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 1: Implement AC1 (AC: AC1)
+  - [x] Code changes
+  - [x] Tests (unit/integration where applicable; otherwise document manual verification)
+  - [x] Manual verification steps documented
 
-- [ ] Task 2: Implement AC2 (AC: AC2)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 2: Implement AC2 (AC: AC2)
+  - [x] Code changes
+  - [x] Tests (unit/integration where applicable; otherwise document manual verification)
+  - [x] Manual verification steps documented
 
-- [ ] Task 3: Implement AC3 (AC: AC3)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 3: Implement AC3 (AC: AC3)
+  - [x] Code changes
+  - [x] Tests (unit/integration where applicable; otherwise document manual verification)
+  - [x] Manual verification steps documented
 
-- [ ] Task 4: Implement AC4 (AC: AC4)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 4: Implement AC4 (AC: AC4)
+  - [x] Code changes
+  - [x] Tests (unit/integration where applicable; otherwise document manual verification)
+  - [x] Manual verification steps documented
 
 ## Dev Notes
 
@@ -89,16 +89,27 @@ AC4
 
 ### Agent Model Used
 
-TBD
+GPT-5 (Codex CLI)
 
 ### Debug Log References
 
-TBD
+- `npm run lint` (AgentChain_UI)
+- `npm run lint` (AgentChain_UI) after code review fixes
 
 ### Completion Notes List
 
-TBD
+- AC1: UI detail now fetches `GET /api/agents/{id}`; no `/agents/{id}` usage.
+- AC2: UI detail rendering aligned to API detail shape (`label`, `cmd`) and summary fields only.
+- AC3: 404 on detail load shows "Agent not found." and clears stale detail.
+- AC4: Non-2xx detail errors show friendly message; no raw error leakage.
+- Manual verification (no UI test harness): 
+  1) Start UI with `VITE_API_BASE_URL=https://localhost:7087`.
+  2) Select an agent; verify network call to `/api/agents/{id}`.
+  3) Force 404 (invalid id) and verify "Agent not found." in UI.
+  4) Simulate API failure; verify generic friendly error.
+- Code review fixes: accept headers set to `application/json` for list/detail; clear stale detail on error; ignore local `.env`.
 
 ### File List
 
-TBD
+- `AgentChain_UI/src/App.tsx`
+- `AgentChain_UI/.gitignore`

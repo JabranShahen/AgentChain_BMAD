@@ -3,7 +3,7 @@ storyId: "1.3"
 storyKey: "1-3-explicit-non-leaky-error-states-catalog-detail"
 epic: "1"
 title: "Explicit, Non-Leaky Error States (Catalog + Detail)"
-status: "ready-for-dev"
+status: "done"
 createdBy: "SM (*create-story #yolo)"
 sourceArtifacts:
   - "_bmad-output/epics.md"
@@ -14,7 +14,7 @@ sourceArtifacts:
 ---
 # Story 1.3: Explicit, Non-Leaky Error States (Catalog + Detail)
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -46,20 +46,20 @@ AC3
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Implement AC1 (AC: AC1)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 1: Implement AC1 (AC: AC1)
+  - [x] Code changes
+  - [x] Tests (unit/integration where applicable; otherwise document manual verification)
+  - [x] Manual verification steps documented
 
-- [ ] Task 2: Implement AC2 (AC: AC2)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 2: Implement AC2 (AC: AC2)
+  - [x] Code changes
+  - [x] Tests (unit/integration where applicable; otherwise document manual verification)
+  - [x] Manual verification steps documented
 
-- [ ] Task 3: Implement AC3 (AC: AC3)
-  - [ ] Code changes
-  - [ ] Tests (unit/integration where applicable; otherwise document manual verification)
-  - [ ] Manual verification steps documented
+- [x] Task 3: Implement AC3 (AC: AC3)
+  - [x] Code changes
+  - [x] Tests (unit/integration where applicable; otherwise document manual verification)
+  - [x] Manual verification steps documented
 
 ## Dev Notes
 
@@ -77,16 +77,31 @@ AC3
 
 ### Agent Model Used
 
-TBD
+GPT-5
 
 ### Debug Log References
 
-TBD
+- npm install (AgentChain_UI)
+- npm test (vitest run)
+- npm run lint
+- npm test (vitest run) after review fixes
+- npm run lint after review fixes
 
 ### Completion Notes List
 
-TBD
+- AC1: added catalog error copy in list panel and retry; added UI test coverage for catalog failure state; manual verification: simulate failed `GET /api/agents` (e.g., stop API) and confirm error + retry shown with no internal details.
+- AC1 follow-up: clear stale catalog selection on error; retry test now exercises refresh behavior.
+- AC2: added UI test coverage for 404 detail error and ensured no chat request fires; manual verification: request an invalid agent id and confirm "Agent not found" with retry.
+- AC3: added UI test coverage for detail non-404/network errors, retry action, and selection preservation; manual verification: force detail endpoint to 500 and confirm retry targets same agent.
 
 ### File List
 
-TBD
+- _bmad-output/implementation-artifacts/1-3-explicit-non-leaky-error-states-catalog-detail.md
+- _bmad-output/implementation-artifacts/1-2-view-agent-details-metadata-menu-items-only.md
+- AgentChain_UI/.gitignore
+- AgentChain_UI/package.json
+- AgentChain_UI/package-lock.json
+- AgentChain_UI/vite.config.js
+- AgentChain_UI/src/setupTests.ts
+- AgentChain_UI/src/App.test.tsx
+- AgentChain_UI/src/App.tsx
