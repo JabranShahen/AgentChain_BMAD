@@ -1,3 +1,14 @@
 # BMAD-only repo: ignore non-BMAD project folders
 /AgentChain_UI/
 /AgentChain_API/
+# .NET build artifacts
+bin/
+obj/
+**/*.pdb
+**/*.dll
+**/*.deps.json
+**/*.runtimeconfig.json
+*.user
+*.suo
+*.cache
+*.log
