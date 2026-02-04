@@ -1,0 +1,17 @@
+﻿{
+  "repository_type": "monolith",
+  "parts": [
+    {
+      "part_id": "core",
+      "name": "AgentChain_BMAD (combined UI/API/Codex)",
+      "type": "web",
+      "root_path": "C:/Users/Jabra/Documents/GitHub/AgentChain/AgentChain_BMAD",
+      "primary_stack": "React/Vite + ASP.NET Core + Codex Runner"
+    }
+  ],
+  "integration_points": [
+    "React UI calls POST /api/chat and project endpoints for navigation",
+    "ASP.NET API persists Projects/Sessions and triggers the Codex runner via Azure Service Bus",
+    "CodexRunner uploads artifacts to Azure Blob Storage and writes manifest.json for traceability"
+  ]
+}
